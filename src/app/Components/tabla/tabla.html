@@ -1,0 +1,23 @@
+<!-- Una caja que envuelve la tabla -->
+<div class="tabla-contenedor">
+	<!-- table mat-table es una tabla de Angular Material, dice que las filas salen de data -->
+	<table mat-table [dataSource]="data()">
+
+		<!-- Un ciclo, que es la clave de todo. Significa “por cada columna que me mandaron, haz lo que está adentro”. -->
+		@for (col of columns(); track col) {
+			<!-- Define una columna. ng-container es una caja invisible que agrupa cosas sin dibujar nada extra. -->
+			<ng-container [matColumnDef]="col">
+				<!-- El título de la columna -->
+				<th mat-header-cell *matHeaderCellDef>{{ col }}</th>
+				<!-- La celda de cada fila. td = celda normal -->
+				<td mat-cell *matCellDef="let fila">{{ fila[col] }}</td>
+			</ng-container>
+			<!-- Se cierra la columna y se cierra el ciclo. -->
+		}
+
+		<!-- Fila de títulos -->
+		<tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+		<!-- Una fila por cada dato -->
+		<tr mat-row *matRowDef="let fila; columns: displayedColumns()"></tr>
+	</table>
+</div>
